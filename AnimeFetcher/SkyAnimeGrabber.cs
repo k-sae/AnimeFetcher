@@ -73,11 +73,44 @@ namespace AnimeFetcher
             }
             url1 = Grabber.ReverseString(tempURL1);
             url2 = Grabber.ReverseString(tempURL2);
+            if (url2 == "" || url2 == null)
+            {
+                return false;
+            }
             if (int.Parse(url1) > int.Parse(url2))
             {
                 return true;
             }
             return false;
+        }
+        public static string GetDownloadLink(string data)
+        {
+            string keyword = "vdw-serverlist";
+            int starttag = 0;
+            int TagEnd = 0;
+            int checker = -1;
+            string holder = "";
+            int VideoCount = 1;
+            while (checker < starttag)
+            {
+                checker = starttag;
+                starttag = data.IndexOf(keyword, starttag) + keyword.Length;
+                if (starttag == keyword.Length - 1)
+                {
+                    break;
+                }
+                if (checker < starttag)
+                {
+                    holder += "<a href=\"";
+                    TagEnd = data.IndexOf("</div>", starttag);
+                    int linkstart = data.IndexOf("href=\"", starttag) + 6;
+                    int linkend = data.IndexOf("\"", linkstart);
+                    holder += data.Substring(linkstart, linkend - linkstart);
+                    holder += "\" target=\"_blanck\">" + "Download Link " + VideoCount++ + " </a>\n";
+                }
+            }
+
+            return holder;
         }
     }
 }

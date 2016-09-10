@@ -543,7 +543,7 @@ namespace AnimeFetcher
                 Html += "<hr>\n";
                 Html += "<hr>\n";
                 status.Text += "download Links...\n";
-                Html += TheTriplets.GetDownloadLink(data, "</span>\n					<a href=\"");
+                Html += SkyAnimeGrabber.GetDownloadLink(data);
                 status.Text += "current page is: " + AnimeUrl + "\n";
                 File.WriteAllText(URI + "LastSession.txt", AnimeUrl + Environment.NewLine);
                 if (AnimeUrl == null )
